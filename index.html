@@ -3,970 +3,233 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Academia de Choferes Punta — Conducí con confianza</title>
+<title>Academia de Choferes Punta — Conducí sin dramas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --black: #0a0a0a;
-    --dark: #111111;
-    --card: #161616;
-    --border: #222222;
-    --gold: #c9a84c;
-    --gold-light: #e0c270;
-    --gold-dim: rgba(201,168,76,0.15);
-    --white: #f5f0e8;
-    --muted: #888880;
-    --text: #d4cfc5;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--black);
-    color: var(--text);
-    font-family: 'Outfit', sans-serif;
-    font-weight: 300;
-    overflow-x: hidden;
-  }
-
-  /* ── GRAIN OVERLAY ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.4;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.4rem 4rem;
-    background: linear-gradient(to bottom, rgba(10,10,10,0.97), transparent);
-    transition: background 0.4s;
-  }
-
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.35rem;
-    font-weight: 600;
-    color: var(--white);
-    letter-spacing: 0.04em;
-    text-decoration: none;
-  }
-
-  .nav-logo span { color: var(--gold); }
-
-  .nav-links {
-    display: flex;
-    gap: 2.4rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 0.78rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    transition: color 0.25s;
-  }
-
-  .nav-links a:hover { color: var(--gold); }
-
-  .nav-cta {
-    background: transparent;
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    padding: 0.55rem 1.5rem;
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.25s, color 0.25s;
-  }
-
-  .nav-cta:hover { background: var(--gold); color: var(--black); }
-
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 0 4rem 6rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201,168,76,0.07) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 80% at 10% 80%, rgba(201,168,76,0.04) 0%, transparent 50%),
-      linear-gradient(160deg, #0e0e0e 0%, #080808 100%);
-  }
-
-  /* Decorative road lines */
-  .hero-lines {
-    position: absolute;
-    right: 0; bottom: 0;
-    width: 55%;
-    height: 100%;
-    pointer-events: none;
-    opacity: 0.06;
-  }
-
-  .hero-eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    position: relative;
-    animation: fadeUp 0.8s ease both;
-  }
-
-  .hero-eyebrow::before {
-    content: '';
-    display: block;
-    width: 2.5rem;
-    height: 1px;
-    background: var(--gold);
-  }
-
-  .hero-eyebrow span {
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-
-  .hero-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3.5rem, 8vw, 7.5rem);
-    font-weight: 300;
-    line-height: 1.0;
-    color: var(--white);
-    position: relative;
-    animation: fadeUp 0.9s 0.1s ease both;
-  }
-
-  .hero-title em {
-    font-style: italic;
-    color: var(--gold);
-  }
-
-  .hero-sub {
-    max-width: 520px;
-    margin-top: 1.8rem;
-    font-size: 1rem;
-    line-height: 1.7;
-    color: var(--muted);
-    position: relative;
-    animation: fadeUp 1s 0.2s ease both;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 1.2rem;
-    margin-top: 2.8rem;
-    position: relative;
-    animation: fadeUp 1s 0.3s ease both;
-  }
-
-  .btn-primary {
-    background: var(--gold);
-    color: var(--black);
-    border: none;
-    padding: 1rem 2.4rem;
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: background 0.25s, transform 0.2s;
-  }
-
-  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
-
-  .btn-secondary {
-    background: transparent;
-    color: var(--white);
-    border: 1px solid var(--border);
-    padding: 1rem 2.4rem;
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: border-color 0.25s, color 0.25s;
-  }
-
-  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
-
-  .hero-stats {
-    display: flex;
-    gap: 3.5rem;
-    margin-top: 5rem;
-    padding-top: 2.5rem;
-    border-top: 1px solid var(--border);
-    position: relative;
-    animation: fadeUp 1s 0.4s ease both;
-  }
-
-  .stat-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.4rem;
-    font-weight: 300;
-    color: var(--white);
-    line-height: 1;
-  }
-
-  .stat-num span { color: var(--gold); }
-
-  .stat-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 0.35rem;
-  }
-
-  /* ── SECTION SHARED ── */
-  section { padding: 7rem 4rem; }
-
-  .section-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.8rem;
-    margin-bottom: 1.2rem;
-  }
-
-  .section-tag::before {
-    content: '';
-    display: block;
-    width: 1.8rem;
-    height: 1px;
-    background: var(--gold);
-  }
-
-  .section-tag span {
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.2rem, 5vw, 4rem);
-    font-weight: 300;
-    color: var(--white);
-    line-height: 1.15;
-  }
-
-  /* ── SERVICIOS ── */
-  .services {
-    background: var(--dark);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .services-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 4rem;
-    flex-wrap: wrap;
-    gap: 2rem;
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--border);
-  }
-
-  .service-card {
-    background: var(--dark);
-    padding: 3rem 2.5rem;
-    position: relative;
-    overflow: hidden;
-    transition: background 0.3s;
-    cursor: default;
-  }
-
-  .service-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--gold);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
-  }
-
-  .service-card:hover { background: var(--card); }
-  .service-card:hover::after { transform: scaleX(1); }
-
-  .service-icon {
-    width: 3rem;
-    height: 3rem;
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.8rem;
-    font-size: 1.2rem;
-    color: var(--gold);
-    transition: border-color 0.3s, background 0.3s;
-  }
-
-  .service-card:hover .service-icon {
-    border-color: var(--gold);
-    background: var(--gold-dim);
-  }
-
-  .service-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: var(--white);
-    margin-bottom: 0.8rem;
-  }
-
-  .service-desc {
-    font-size: 0.88rem;
-    line-height: 1.7;
-    color: var(--muted);
-  }
-
-  /* ── PROCESO ── */
-  .process { background: var(--black); }
-
-  .process-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: start;
-  }
-
-  .process-left { position: sticky; top: 8rem; }
-
-  .process-steps { margin-top: 3rem; }
-
-  .step {
-    display: flex;
-    gap: 1.8rem;
-    padding: 2rem 0;
-    border-bottom: 1px solid var(--border);
-    position: relative;
-  }
-
-  .step:last-child { border-bottom: none; }
-
-  .step-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--gold);
-    letter-spacing: 0.05em;
-    min-width: 2rem;
-    padding-top: 0.1rem;
-  }
-
-  .step-content h4 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    font-weight: 400;
-    color: var(--white);
-    margin-bottom: 0.5rem;
-  }
-
-  .step-content p {
-    font-size: 0.86rem;
-    line-height: 1.7;
-    color: var(--muted);
-  }
-
-  /* ── TESTIMONIOS ── */
-  .testimonials {
-    background: var(--dark);
-    border-top: 1px solid var(--border);
-  }
-
-  .testimonials-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 3.5rem;
-  }
-
-  .stars {
-    color: var(--gold);
-    letter-spacing: 0.15em;
-    font-size: 0.9rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-  }
-
-  .testi-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    padding: 2.2rem;
-    position: relative;
-    transition: border-color 0.3s, transform 0.3s;
-  }
-
-  .testi-card:hover {
-    border-color: rgba(201,168,76,0.3);
-    transform: translateY(-4px);
-  }
-
-  .testi-quote {
-    font-size: 2rem;
-    color: var(--gold);
-    font-family: 'Cormorant Garamond', serif;
-    line-height: 1;
-    margin-bottom: 1rem;
-    opacity: 0.4;
-  }
-
-  .testi-text {
-    font-size: 0.88rem;
-    line-height: 1.75;
-    color: var(--text);
-    margin-bottom: 1.5rem;
-  }
-
-  .testi-author {
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-
-  /* ── CTA BAND ── */
-  .cta-band {
-    background: var(--gold);
-    padding: 4.5rem 4rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-    flex-wrap: wrap;
-  }
-
-  .cta-band h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.8rem, 4vw, 3rem);
-    font-weight: 300;
-    color: var(--black);
-    line-height: 1.2;
-  }
-
-  .cta-band h2 em { font-style: italic; }
-
-  .btn-dark {
-    background: var(--black);
-    color: var(--gold);
-    border: none;
-    padding: 1rem 2.6rem;
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    cursor: pointer;
-    white-space: nowrap;
-    text-decoration: none;
-    display: inline-block;
-    transition: background 0.25s;
-  }
-
-  .btn-dark:hover { background: #1a1a1a; }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--black);
-    border-top: 1px solid var(--border);
-    padding: 4rem 4rem 2.5rem;
-  }
-
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 3rem;
-    padding-bottom: 3rem;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 2rem;
-  }
-
-  .footer-brand h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    color: var(--white);
-    margin-bottom: 0.8rem;
-  }
-
-  .footer-brand h3 span { color: var(--gold); }
-
-  .footer-brand p {
-    font-size: 0.84rem;
-    line-height: 1.7;
-    color: var(--muted);
-    max-width: 280px;
-  }
-
-  .footer-col h4 {
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1.2rem;
-  }
-
-  .footer-col ul { list-style: none; }
-
-  .footer-col li {
-    margin-bottom: 0.65rem;
-  }
-
-  .footer-col a {
-    font-size: 0.84rem;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .footer-col a:hover { color: var(--white); }
-
-  .footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.75rem;
-    color: var(--muted);
-    letter-spacing: 0.05em;
-  }
-
-  .social-links {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
-  }
-
-  .social-link {
-    width: 2.2rem;
-    height: 2.2rem;
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 0.75rem;
-    transition: border-color 0.25s, color 0.25s, background 0.25s;
-  }
-
-  .social-link:hover {
-    border-color: var(--gold);
-    color: var(--gold);
-    background: var(--gold-dim);
-  }
-
-  /* ── FLOATING WA ── */
-  .wa-float {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    z-index: 200;
-    width: 3.2rem;
-    height: 3.2rem;
-    background: #25D366;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.4rem;
-    text-decoration: none;
-    box-shadow: 0 4px 20px rgba(37,211,102,0.4);
-    transition: transform 0.25s, box-shadow 0.25s;
-  }
-
-  .wa-float:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 28px rgba(37,211,102,0.55);
-  }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(28px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Decorative divider */
-  .divider {
-    display: flex;
-    align-items: center;
-    gap: 1.2rem;
-    margin: 0 4rem;
-    padding: 1.5rem 0;
-    opacity: 0.2;
-  }
-
-  .divider::before, .divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--gold);
-  }
-
-  .divider-icon { color: var(--gold); font-size: 0.8rem; }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">Academia<span>·</span>Punta</a>
-  <ul class="nav-links">
-    <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#proceso">Proceso</a></li>
-    <li><a href="#testimonios">Opiniones</a></li>
-    <li><a href="#contacto">Contacto</a></li>
-  </ul>
-  <a href="https://api.whatsapp.com/send?phone=59894774465" class="nav-cta" target="_blank">Empezar ahora</a>
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="logo">Academia<span>Punta</span></a>
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#testimonios">Opiniones</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="https://api.whatsapp.com/send?phone=59894774465&text=Quiero%20empezar%20ahora." class="btn-nav" target="_blank">Empezar →</a>
+    <button class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#servicios">Servicios</a>
+    <a href="#proceso">Proceso</a>
+    <a href="#testimonios">Opiniones</a>
+    <a href="#contacto">Contacto</a>
+    <a href="https://api.whatsapp.com/send?phone=59894774465" class="btn-mobile" target="_blank">Empezar ahora</a>
+  </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section id="hero">
   <div class="hero-bg"></div>
-
-  <svg class="hero-lines" viewBox="0 0 600 900" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <line x1="300" y1="0" x2="300" y2="900" stroke="#c9a84c" stroke-width="1"/>
-    <line x1="340" y1="0" x2="340" y2="900" stroke="#c9a84c" stroke-width="0.5" stroke-dasharray="20 20"/>
-    <line x1="260" y1="0" x2="260" y2="900" stroke="#c9a84c" stroke-width="0.5" stroke-dasharray="20 20"/>
-    <line x1="460" y1="0" x2="140" y2="900" stroke="#c9a84c" stroke-width="0.3"/>
-    <line x1="560" y1="0" x2="40" y2="900" stroke="#c9a84c" stroke-width="0.3"/>
-    <line x1="200" y1="0" x2="400" y2="900" stroke="#c9a84c" stroke-width="0.3"/>
-  </svg>
-
-  <div class="hero-eyebrow">
-    <span>Punta del Este, Uruguay — Desde 2010</span>
+  <div class="hero-content">
+    <div class="hero-badge">🚗 Punta del Este, Uruguay</div>
+    <h1>Tu licencia,<br><span>sin dramas.</span></h1>
+    <p>Clases personalizadas para autos y motos. Instructores certificados. Tramitamos todo por vos.</p>
+    <div class="hero-btns">
+      <a href="https://api.whatsapp.com/send?phone=59894774465&text=Quiero%20empezar%20ahora." class="btn-primary" target="_blank">Quiero empezar</a>
+      <a href="#servicios" class="btn-outline">Ver servicios</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="num">5★</span><span class="label">Google</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="num">+15</span><span class="label">Años</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="num">100%</span><span class="label">Certificados</span></div>
+    </div>
   </div>
-
-  <h1 class="hero-title">
-    Conducí con<br>
-    <em>confianza total</em>
-  </h1>
-
-  <p class="hero-sub">
-    La academia de choferes de referencia en Maldonado. Clases personalizadas para autos y motos, instructores certificados y toda la gestión del trámite de licencia.
-  </p>
-
-  <div class="hero-actions">
-    <a href="https://api.whatsapp.com/send?phone=59894774465&text=Quiero%20empezar%20ahora." class="btn-primary" target="_blank">Quiero empezar</a>
-    <a href="#servicios" class="btn-secondary">Ver servicios</a>
-  </div>
-
-  <div class="hero-stats">
-    <div>
-      <div class="stat-num">5<span>★</span></div>
-      <div class="stat-label">Calificación Google</div>
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="card-icon">🏍️</div>
+      <div>Motos</div>
     </div>
-    <div>
-      <div class="stat-num">100<span>%</span></div>
-      <div class="stat-label">Instructores certificados</div>
+    <div class="hero-card active">
+      <div class="card-icon">🚗</div>
+      <div>Autos</div>
     </div>
-    <div>
-      <div class="stat-num">+<span>15</span></div>
-      <div class="stat-label">Años de experiencia</div>
-    </div>
-    <div>
-      <div class="stat-num">2<span> veh.</span></div>
-      <div class="stat-label">Autos y motos propios</div>
+    <div class="hero-card">
+      <div class="card-icon">📋</div>
+      <div>Trámites</div>
     </div>
   </div>
 </section>
-
-<div class="divider"><span class="divider-icon">◆</span></div>
 
 <!-- SERVICIOS -->
-<section class="services" id="servicios">
-  <div class="services-header">
-    <div>
-      <div class="section-tag"><span>Lo que ofrecemos</span></div>
-      <h2 class="section-title reveal">Todo lo que necesitás<br>para obtener tu licencia</h2>
-    </div>
-    <a href="https://api.whatsapp.com/send?phone=59894774465" class="btn-secondary reveal" target="_blank" style="margin-bottom: 0.5rem">Consultar precios →</a>
-  </div>
-
+<section id="servicios">
+  <div class="section-tag">Lo que ofrecemos</div>
+  <h2 class="section-title">Todo para <span>tu licencia</span></h2>
   <div class="services-grid">
     <div class="service-card reveal">
-      <div class="service-icon">🚗</div>
-      <div class="service-name">Clases de Autos</div>
-      <p class="service-desc">Unidades nuevas y en perfecto estado. Amplio horario de lunes a sábados. Pasamos a buscarte para comenzar cada clase.</p>
+      <div class="s-icon">🚗</div>
+      <h3>Clases de Autos</h3>
+      <p>Unidades nuevas, horario amplio de lunes a sábados. Te pasamos a buscar para cada clase.</p>
     </div>
     <div class="service-card reveal">
-      <div class="service-icon">🏍️</div>
-      <div class="service-name">Clases de Motos</div>
-      <p class="service-desc">Se realizan en pista La Loma. Proporcionamos vehículo, casco y reflectivos autorizados. Horarios de lunes a sábados.</p>
+      <div class="s-icon">🏍️</div>
+      <h3>Clases de Motos</h3>
+      <p>En pista La Loma. Vehículo, casco y reflectivos incluidos. Clases personalizadas.</p>
     </div>
     <div class="service-card reveal">
-      <div class="service-icon">📋</div>
-      <div class="service-name">Gestoría de Trámites</div>
-      <p class="service-desc">Realizamos todos los trámites ante la Intendencia de Maldonado. Tu tiempo vale oro — nosotros nos encargamos de todo.</p>
+      <div class="s-icon">📋</div>
+      <h3>Gestoría IDM</h3>
+      <p>Hacemos todos los trámites en la Intendencia por vos. Tu tiempo vale oro.</p>
     </div>
     <div class="service-card reveal">
-      <div class="service-icon">🧠</div>
-      <div class="service-name">Prueba Teórica</div>
-      <p class="service-desc">Clase de apoyo para la prueba teórica a cargo de un docente. Coordinamos fecha y hora a tu conveniencia.</p>
+      <div class="s-icon">🧠</div>
+      <h3>Prueba Teórica</h3>
+      <p>Clase de apoyo con docente. Porque el 70% reprueba sin preparación.</p>
     </div>
     <div class="service-card reveal">
-      <div class="service-icon">🛡️</div>
-      <div class="service-name">Charla de Manejo Defensivo</div>
-      <p class="service-desc">Lunes, miércoles y viernes a las 8:00 hs y 18:30 hs. Coordinar cita previa con documento de identidad.</p>
+      <div class="s-icon">🛡️</div>
+      <h3>Manejo Defensivo</h3>
+      <p>Lunes, miércoles y viernes. Doble horario: 8:00 hs y 18:30 hs.</p>
     </div>
     <div class="service-card reveal">
-      <div class="service-icon">🧘</div>
-      <div class="service-name">Asistencia Psicológica</div>
-      <p class="service-desc">Servicio de abordaje psicoterapéutico para el miedo al volante. Pocos sesiones que acompañan tu proceso de aprendizaje.</p>
+      <div class="s-icon">🧘</div>
+      <h3>Apoyo Psicológico</h3>
+      <p>¿Le tenés miedo al volante? Tenemos profesionales que te acompañan.</p>
     </div>
   </div>
 </section>
-
-<div class="divider"><span class="divider-icon">◆</span></div>
 
 <!-- PROCESO -->
-<section class="process" id="proceso">
-  <div class="process-inner">
-    <div class="process-left">
-      <div class="section-tag"><span>Cómo funciona</span></div>
-      <h2 class="section-title reveal">Del cero<br>a tu <em style="font-style:italic">licencia</em></h2>
-      <p style="margin-top: 1.5rem; font-size:0.9rem; line-height:1.8; color:var(--muted); max-width:380px;" class="reveal">
-        Coordinamos cada instancia según tu disponibilidad. Vos solo tenés que presentarte con tu documento — del resto nos encargamos nosotros.
-      </p>
-      <div style="margin-top:2.5rem;" class="reveal">
-        <a href="https://api.whatsapp.com/send?phone=59894774465&text=Quiero%20saber%20c%C3%B3mo%20empezar." class="btn-primary" target="_blank">Empezá hoy</a>
+<section id="proceso">
+  <div class="section-tag">Cómo funciona</div>
+  <h2 class="section-title">Del cero a tu <span>licencia</span></h2>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>Clases de manejo</h3>
+        <p>Aprendé con instructores habilitados. Vehículo de la academia incluido.</p>
       </div>
     </div>
-
-    <div class="process-steps">
-      <div class="step reveal">
-        <div class="step-num">01</div>
-        <div class="step-content">
-          <h4>Clases de Manejo</h4>
-          <p>Aprendé con instructores registrados y habilitados. Clases personalizadas adaptadas a tu ritmo, con vehículo propio de la academia.</p>
-        </div>
+    <div class="step reveal">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>Charla de manejo defensivo</h3>
+        <p>Instancia obligatoria. La coordinamos a tu horario.</p>
       </div>
-      <div class="step reveal">
-        <div class="step-num">02</div>
-        <div class="step-content">
-          <h4>Charla de Manejo Defensivo</h4>
-          <p>Instancia obligatoria para obtener la licencia. La coordinamos a tu conveniencia: tres días a la semana, doble horario.</p>
-        </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>Certificado de aptitud física</h3>
+        <p>Te damos la lista de instituciones autorizadas en Maldonado.</p>
       </div>
-      <div class="step reveal">
-        <div class="step-num">03</div>
-        <div class="step-content">
-          <h4>Certificado de Aptitud Física</h4>
-          <p>Concurrís a una de las instituciones autorizadas en Maldonado, Piriápolis, San Carlos o Aiguá. Te damos la lista completa.</p>
-        </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <h3>Prueba teórica</h3>
+        <p>Con clase de apoyo opcional. Coordinamos fecha en la IDM.</p>
       </div>
-      <div class="step reveal">
-        <div class="step-num">04</div>
-        <div class="step-content">
-          <h4>Prueba Teórica</h4>
-          <p>La coordinamos en la oficina de Licencias de la IDM. Si necesitás apoyo extra, tenemos clase de preparación con docente.</p>
-        </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">05</div>
+      <div class="step-body">
+        <h3>Prueba práctica</h3>
+        <p>En pista La Loma con nuestro vehículo e instructor habilitado.</p>
       </div>
-      <div class="step reveal">
-        <div class="step-num">05</div>
-        <div class="step-content">
-          <h4>Prueba Práctica</h4>
-          <p>En pista La Loma. Presentamos vehículo e instructor habilitados. Llegás, manejás y aprobás.</p>
-        </div>
-      </div>
-      <div class="step reveal">
-        <div class="step-num">06</div>
-        <div class="step-content">
-          <h4>¡Licencia en mano!</h4>
-          <p>Gestionamos el trámite final ante la IDM. Recibís tu licencia sin haber hecho colas ni trámites complicados.</p>
-        </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">06</div>
+      <div class="step-body">
+        <h3>¡Licencia en mano!</h3>
+        <p>Gestionamos el trámite final. Vos solo disfrutás el resultado.</p>
       </div>
     </div>
   </div>
 </section>
-
-<div class="divider"><span class="divider-icon">◆</span></div>
 
 <!-- TESTIMONIOS -->
-<section class="testimonials" id="testimonios">
-  <div class="testimonials-header">
-    <div>
-      <div class="section-tag"><span>Opiniones reales</span></div>
-      <h2 class="section-title reveal">Lo que dicen<br>nuestros alumnos</h2>
-    </div>
-    <div class="reveal" style="text-align:right">
+<section id="testimonios">
+  <div class="section-tag">Opiniones reales</div>
+  <h2 class="section-title">Lo que dicen <span>nuestros alumnos</span></h2>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
       <div class="stars">★★★★★</div>
-      <div style="font-size:0.78rem; color:var(--muted); letter-spacing:0.05em">Calificación en Google Maps</div>
-    </div>
-  </div>
-
-  <div class="testimonials-grid">
-    <div class="testi-card reveal">
-      <div class="testi-quote">"</div>
-      <p class="testi-text">Súper recomendado. Un placer tomar clases con Darío. Super profesional y con una paciencia infinita.</p>
-      <div class="testi-author">Romi Giedzinski</div>
+      <p>"Súper recomendado. Un placer tomar clases con Darío. Profesional y con paciencia infinita."</p>
+      <div class="author">Romi Giedzinski</div>
     </div>
     <div class="testi-card reveal">
-      <div class="testi-quote">"</div>
-      <p class="testi-text">Muy agradecida con Fernando por toda la ayuda. Gracias a su paciencia y dedicación, pude aprobar sin problemas. ¡100% recomendable!</p>
-      <div class="testi-author">Evelyn Schlenzak</div>
+      <div class="stars">★★★★★</div>
+      <p>"Gracias a Fernando pude aprobar sin problemas. Paciencia y dedicación total. 100% recomendable."</p>
+      <div class="author">Evelyn Schlenzak</div>
     </div>
     <div class="testi-card reveal">
-      <div class="testi-quote">"</div>
-      <p class="testi-text">Excelentes instructores, mucha atención a los detalles para estar tranquilos y confiados en las pruebas. Flota impecable. 10/10 en todo.</p>
-      <div class="testi-author">Gabriel URU</div>
+      <div class="stars">★★★★★</div>
+      <p>"Flota impecable, instructores excelentes. 10/10 en todo. Muy agradecido."</p>
+      <div class="author">Gabriel URU</div>
     </div>
     <div class="testi-card reveal">
-      <div class="testi-quote">"</div>
-      <p class="testi-text">100% recomendable. Tanto el rápido aprendizaje como la buena predisposición de los instructores. Muchas gracias por todo.</p>
-      <div class="testi-author">Martin Gannuso</div>
+      <div class="stars">★★★★★</div>
+      <p>"100% recomendable. Rápido aprendizaje y buena predisposición de los instructores."</p>
+      <div class="author">Martin Gannuso</div>
     </div>
     <div class="testi-card reveal">
-      <div class="testi-quote">"</div>
-      <p class="testi-text">Excelente academia para aprender a manejar. Enseñan con mucha paciencia y dedicación. ¡Gracias por hacerlo con tan buena onda!</p>
-      <div class="testi-author">Melisa Alvarez</div>
+      <div class="stars">★★★★★</div>
+      <p>"Enseñan con paciencia y dedicación. ¡Gracias por hacerlo con tan buena onda!"</p>
+      <div class="author">Melisa Alvarez</div>
     </div>
     <div class="testi-card reveal">
-      <div class="testi-quote">"</div>
-      <p class="testi-text">Agradecido a la academia Punta por el servicio brindado. Herramienta y atención de primera. Lo recomiendo para todo el que necesite este servicio.</p>
-      <div class="testi-author">Mauro Corbo</div>
+      <div class="stars">★★★★★</div>
+      <p>"Herramienta y atención de primera. Lo recomiendo para todo el que necesite este servicio."</p>
+      <div class="author">Mauro Corbo</div>
     </div>
   </div>
 </section>
 
-<!-- CTA BAND -->
-<div class="cta-band" id="contacto">
-  <h2>¿Listo para sacar<br><em>tu licencia</em>?</h2>
-  <div style="display:flex; gap:1rem; flex-wrap:wrap;">
-    <a href="https://api.whatsapp.com/send?phone=59894774465&text=Quiero%20empezar%20ahora." class="btn-dark" target="_blank">📱 WhatsApp Autos</a>
-    <a href="https://api.whatsapp.com/send?phone=59898151659&text=Quiero%20empezar%20ahora." class="btn-dark" target="_blank">📱 WhatsApp Motos</a>
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="contacto-inner">
+    <div class="section-tag">Contacto</div>
+    <h2 class="section-title">¿Listo para <span>empezar?</span></h2>
+    <p class="contacto-sub">Escribinos por WhatsApp y coordinamos todo a tu horario.</p>
+    <div class="contacto-btns">
+      <a href="https://api.whatsapp.com/send?phone=59894774465&text=Quiero%20empezar%20ahora." class="btn-wa" target="_blank">📱 WhatsApp — Autos</a>
+      <a href="https://api.whatsapp.com/send?phone=59898151659&text=Quiero%20empezar%20ahora." class="btn-wa" target="_blank">📱 WhatsApp — Motos</a>
+    </div>
+    <div class="redes">
+      <a href="https://www.instagram.com/academiadechoferespunta/" target="_blank">Instagram</a>
+      <a href="https://www.facebook.com/Academia-de-choferes-Punta-339658393468083" target="_blank">Facebook</a>
+    </div>
   </div>
-</div>
+</section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <h3>Academia<span>·</span>Punta</h3>
-      <p>La academia de choferes de referencia en Punta del Este y Maldonado. Más de 15 años formando conductores seguros y confiados.</p>
-      <div class="social-links">
-        <a href="https://www.facebook.com/Academia-de-choferes-Punta-339658393468083" class="social-link" target="_blank">f</a>
-        <a href="https://www.instagram.com/academiadechoferespunta/" class="social-link" target="_blank">ig</a>
-        <a href="https://api.whatsapp.com/send?phone=59894774465" class="social-link" target="_blank">wa</a>
-      </div>
+  <div class="footer-inner">
+    <div class="footer-logo">Academia<span>Punta</span></div>
+    <p>La academia de choferes de referencia en Maldonado, Uruguay.</p>
+    <div class="footer-links">
+      <a href="#servicios">Servicios</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#testimonios">Opiniones</a>
+      <a href="#contacto">Contacto</a>
     </div>
-    <div class="footer-col">
-      <h4>Servicios</h4>
-      <ul>
-        <li><a href="#">Clases de Autos</a></li>
-        <li><a href="#">Clases de Motos</a></li>
-        <li><a href="#">Prueba Teórica</a></li>
-        <li><a href="#">Manejo Defensivo</a></li>
-        <li><a href="#">Gestoría IDM</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Academia</h4>
-      <ul>
-        <li><a href="#">Quiénes somos</a></li>
-        <li><a href="#">Materiales de estudio</a></li>
-        <li><a href="#">Páginas de interés</a></li>
-        <li><a href="#">Novedades</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Contacto</h4>
-      <ul>
-        <li><a href="https://api.whatsapp.com/send?phone=59894774465">094 774 465 — Autos</a></li>
-        <li><a href="https://api.whatsapp.com/send?phone=59898151659">098 151 659 — Motos</a></li>
-        <li><a href="#">Maldonado, Uruguay</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2025 Academia de Choferes Punta — Maldonado, Uruguay</span>
-    <span style="color: rgba(201,168,76,0.4); font-size:0.7rem; letter-spacing:0.05em;">DEMO REDISEÑO</span>
+    <div class="footer-copy">© 2025 Academia de Choferes Punta — Maldonado, Uruguay</div>
   </div>
 </footer>
 
-<!-- Floating WhatsApp -->
-<a href="https://api.whatsapp.com/send?phone=59894774465&text=Hola%2C%20quiero%20informaci%C3%B3n." class="wa-float" target="_blank" title="WhatsApp">💬</a>
+<a href="https://api.whatsapp.com/send?phone=59894774465" class="wa-float" target="_blank">💬</a>
 
-<script>
-  // Reveal on scroll
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  reveals.forEach(el => observer.observe(el));
-
-  // Nav scroll effect
-  const nav = document.querySelector('nav');
-  window.addEventListener('scroll', () => {
-    nav.style.background = window.scrollY > 60
-      ? 'rgba(10,10,10,0.97)'
-      : 'linear-gradient(to bottom, rgba(10,10,10,0.97), transparent)';
-    nav.style.borderBottom = window.scrollY > 60 ? '1px solid #222' : 'none';
-  });
-</script>
-
+<script src="js/main.js"></script>
 </body>
 </html>
